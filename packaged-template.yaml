@@ -6,69 +6,58 @@ Description: 'Portfolio Backend
 
   '
 Globals:
+  Api:
+    Cors:
+      AllowOrigin: '''*'''
+      AllowMethods: '''OPTION,GET'''
+      AllowHeaders: '''Content-Type'''
   Function:
     Timeout: 3
 Resources:
-  PortfolioBackendAPI:
-    Type: AWS::Serverless::API
-    Properties:
-      Name: Portfolio Backend API Gateway
-      StageName: Prod
-      Cors:
-        AllowHeaders: '''Access-Control-Allow-Origin'''
-        AllowOrigin: '''*'''
   PortfolioBackendFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://portfoliobackend169/f68ebdc77d304ef8cf0200d7d22477ca
+      CodeUri: s3://portfoliobackend169/b5b921b0f455971aaf00966e61d42204
       Description: Simple backend read/write to DyanmoDB
       Handler: PortfolioBackendFunction.lambda_handler
       Runtime: python3.8
       MemorySize: 128
       Timeout: 3
       Policies:
-      - Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-          Action:
-          - dynamodb:GetItem
-          - dynamodb:PutItem
-          - dynamodb:UpdateItem
-          Resource:
-            Fn::Join:
-            - ''
-            - - 'arn:aws:dynamodb:'
-              - Ref: AWS::Region
-              - ':'
-              - Ref: AWS::AccountId
-              - :tables/VisitorsTable
+      - DynamoDBReadPolicy:
+          TableName:
+            Ref: VisitorsTable
+      - DynamoDBWritePolicy:
+          TableName:
+            Ref: VisitorsTable
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: VisitorsTable
       Events:
-        PortfolioBackendAPI:
+        HttpGet:
           Type: Api
           Properties:
-            Path: /portfoliobackend
-            Method: get
-            RestApiId:
-              Ref: PortfolioBackendAPI
+            Path: /VisitorCounter
+            Method: GET
   VisitorsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: VisitorCounter
       KeySchema:
-        -AttributeName: website
+      - AttributeName: website
         KeyType: HASH
       AttributeDefinitions:
-        -AttributeName: website
+      - AttributeName: website
         AttributeType: S
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-      BillingMode: PAY_PER_REQUEST
 Outputs:
   PortfolioBackendApi:
     Description: API Gateway endpoint URL for Prod stage for Portfolio Backend function
     Value:
-      Fn::Sub: https://${PortfolioBackendAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/
   PortfolioBackendFunction:
     Description: Portfolio Backend Lambda Function ARN
     Value:
