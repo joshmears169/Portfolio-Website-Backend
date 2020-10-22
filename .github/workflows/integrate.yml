@@ -12,7 +12,7 @@ jobs:
 #Brings in source code changes        
     - uses: actions/checkout@master
       
-# Python unit test
+# Installs Python and environment
     - name: Install Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -24,7 +24,12 @@ jobs:
         pip install -r requirements.txt
         pip install boto3
         pip install pytest
+# Tests        
     - name: Pytest Portfolio Backend Function
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: eu-west-2
       run: python python_test.py
   
 #Package
