@@ -14,7 +14,7 @@ def test_negative():
   response = lambda_handler(0, 0)
   print("Response: ", response)
 
-  message = "Status code is not 200!!!"
+  message = "Status code is not 200!"
   assert 200 == response['statusCode'], message
 
 if __name__ == '__main__':
