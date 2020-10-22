@@ -16,7 +16,7 @@ region_name = os.environ.get("AWS_REGION", DEFAULT_REGION)
 
 def lambda_handler(event, context):  
 
-    dynamodb = boto3.resource('dynamodb', , region_name='eu-west-2')
+    dynamodb = boto3.resource('dynamodb', region_name='eu-west-2')
    
     table = dynamodb.Table('VisitorCounter')
 
