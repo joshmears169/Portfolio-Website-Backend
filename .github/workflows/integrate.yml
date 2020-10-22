@@ -1,1 +1,52 @@
+name: Portfolio Backend CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+#Fires up runner to work on    
+    runs-on: ubuntu-latest
+    steps:
+#Brings in source code changes        
+    - uses: actions/checkout@master
+      
+# Python unit test
+    - name: Install Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install moto boto3
+        pip install pytest
+    - name: Pytest Portfolio Backend Function
+      run: python python_test.py
+  
+#Package
+    - name: Package
+      uses: chriscoffee/sam-github-actions@master
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      with:
+        args: package --s3-bucket ${{ secrets.S3_BUCKET }} --output-template-file packaged-template.yaml
+  
+#Deploy
+    - name: Deploy
+      uses: chriscoffee/sam-github-actions@master
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        STACK_NAME: ${{ secrets.STACK_NAME }}
+      with:
+        args: deploy --template-file packaged-template.yaml --stack-name ${{ secrets.STACK_NAME }} --capabilities CAPABILITY_IAM
+
 
