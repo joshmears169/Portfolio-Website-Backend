@@ -39,7 +39,7 @@ def lambda_handler(event, context):
         "headers": {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,GET",
-            "Access-Control-Allow-Headers": "Content-Type"
+            "Access-Control-Allow-Headers": "*"
         },
         "body": json.dumps(count, cls=DecimalEncoder)
     }

@@ -10,14 +10,14 @@ Globals:
     Cors:
       AllowOrigin: '''*'''
       AllowMethods: '''OPTION,GET'''
-      AllowHeaders: '''Content-Type'''
+      AllowHeaders: '''*'''
   Function:
     Timeout: 3
 Resources:
   PortfolioBackendFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://portfoliobackend169/b5b921b0f455971aaf00966e61d42204
+      CodeUri: s3://portfoliobackend169/a10ba18af2bbf18847c41d7a5ab23e75
       Description: Simple backend read/write to DyanmoDB
       Handler: PortfolioBackendFunction.lambda_handler
       Runtime: python3.8

@@ -10,7 +10,7 @@ Globals:
     Cors:
       AllowOrigin: "'*'"
       AllowMethods: "'OPTION,GET'"
-      AllowHeaders: "'Content-Type'"    
+      AllowHeaders: "'*'"    
   Function:
     Timeout: 3
 Resources:
