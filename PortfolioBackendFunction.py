@@ -1,6 +1,7 @@
 import boto3
 import json
 from decimal import Decimal
+import os
 
 # Helper class to convert a DynamoDB item to JSON.
 class DecimalEncoder(json.JSONEncoder):
@@ -9,9 +10,13 @@ class DecimalEncoder(json.JSONEncoder):
             return float(obj)
         return json.JSONEncoder.default(self, obj) 
 
+# create the client outside of the handler
+DEFAULT_REGION = "eu-west-2"
+region_name = os.environ.get("AWS_REGION", DEFAULT_REGION)
+
 def lambda_handler(event, context):  
 
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', , region_name='eu-west-2')
    
     table = dynamodb.Table('VisitorCounter')
 
