@@ -1,6 +1,7 @@
 import boto3
 import os
 import pytest
+from moto import mock_dynamodb2
 from PortfolioBackendFunction import lambda_handler
 
 def test_Env(): 
@@ -9,6 +10,7 @@ def test_Env():
   os.environ['AWS_SECRET_ACCESS_KEY'] = 'foobar' 
   os.environ["AWS_DEFAULT_REGION"] = DEFAULT_REGION
 
+@mock_dynamodb2
 def test_negative():
 
   response = lambda_handler(0, 0)
