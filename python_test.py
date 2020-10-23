@@ -3,7 +3,7 @@ import boto3
 import pytest
 from PortfolioBackendFunction import lambda_handler
 
-#def test_Env(): 
+##def test_Env(): 
  # DEFAULT_REGION = "eu-west-2"   
   #os.environ['AWS_ACCESS_KEY_ID'] = 'foobar'
   #os.environ['AWS_SECRET_ACCESS_KEY'] = 'foobar' 
