@@ -3,7 +3,7 @@ import json
 from decimal import Decimal
 import os
 
-# Helper class to convert a DynamoDB item to JSON.
+## Helper class to convert a DynamoDB item to JSON.
 class DecimalEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Decimal):
