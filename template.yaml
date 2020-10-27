@@ -40,9 +40,9 @@ Resources:
       Timeout: 3
       Policies:
          - DynamoDBReadPolicy: 
-            TableName: !Ref VisitorsTable
+            TableName: !Ref VisitorCounter
          - DynamoDBWritePolicy:
-            TableName: !Ref VisitorsTable
+            TableName: !Ref VisitorCounter
        # - Version: '2012-10-17'
        #   Statement:
        #     - Effect: Allow
