@@ -1,0 +1,77 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'Portfolio Backend
+
+  SAM Template for creating the backend of my portfolio website
+
+  '
+Globals:
+  Api:
+    Cors:
+      AllowOrigin: '''*'''
+      AllowMethods: '''OPTION,GET'''
+      AllowHeaders: '''*'''
+  Function:
+    Timeout: 3
+Resources:
+  PortfolioBackendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://portfoliobackend169/b6c6852bb3d9229fdd6316c9c9015ff5
+      Description: Simple backend read/write to DyanmoDB
+      Handler: PortfolioBackendFunction.lambda_handler
+      Runtime: python3.8
+      MemorySize: 128
+      Timeout: 3
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName:
+            Ref: VisitorCounter
+      - DynamoDBWritePolicy:
+          TableName:
+            Ref: VisitorCounter
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: VisitorCounter
+      Events:
+        HttpGet:
+          Type: Api
+          Properties:
+            Path: /VisitorCounter
+            Method: get
+  VisitorCounter:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+      - AttributeName: website
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: website
+        AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+Outputs:
+  PortfolioBackendApi:
+    Description: API Gateway endpoint URL for Prod stage for Portfolio Backend function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/
+  PortfolioBackendFunction:
+    Description: Portfolio Backend Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - PortfolioBackendFunction
+      - Arn
+  PortfolioBackendFunctionIamRole:
+    Description: Implicit IAM Role created for Portfolio Backend function
+    Value:
+      Fn::GetAtt:
+      - PortfolioBackendFunctionRole
+      - Arn
+  VisitorCounter:
+    Description: DynamoDB table to record visitor count to my portfolio
+    Value:
+      Fn::GetAtt:
+      - VisitorCounter
+      - Arn
