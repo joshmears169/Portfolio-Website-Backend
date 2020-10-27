@@ -39,7 +39,7 @@ Resources:
           Type: Api
           Properties:
             Path: /VisitorCounter
-            Method: get
+            Method: GET
   VisitorCounter:
     Type: AWS::DynamoDB::Table
     Properties:

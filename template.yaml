@@ -67,7 +67,7 @@ Resources:
           Type: Api
           Properties:
             Path: /VisitorCounter
-            Method: get
+            Method: GET
             #RestApiId: !Ref ServerlessRestApi
 #LambdaLayers  
   #SimplejsonLayer:
@@ -103,6 +103,6 @@ Outputs:
   PortfolioBackendFunctionIamRole:
     Description: Implicit IAM Role created for Portfolio Backend function
     Value: !GetAtt PortfolioBackendFunctionRole.Arn
-  VisitorCounter:
-    Description: DynamoDB table to record visitor count to my portfolio
-    Value: !GetAtt VisitorCounter.Arn
+  #VisitorCounter:
+   # Description: DynamoDB table to record visitor count to my portfolio
+    #Value: !GetAtt VisitorCounter.Arn
