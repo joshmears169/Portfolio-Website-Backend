@@ -43,7 +43,6 @@ Resources:
             TableName: !Ref VisitorCounter
          - DynamoDBWritePolicy:
             TableName: !Ref VisitorCounter
-            #
        # - Version: '2012-10-17'
        #   Statement:
        #     - Effect: Allow
@@ -64,11 +63,11 @@ Resources:
           TABLE_NAME: !Ref VisitorCounter
       Events:
         VisitorCounter:
-            Type: Api
-            Properties:
-              Path: /VisitorCounter
-              Method: GET
-              #RestApiId: !Ref ServerlessRestApi
+          Type: Api
+          Properties:
+            Path: /VisitorCounter
+            Method: get
+            #RestApiId: !Ref ServerlessRestApi
 #LambdaLayers  
   #SimplejsonLayer:
    # Type: AWS::Serverless::LayerVersion
