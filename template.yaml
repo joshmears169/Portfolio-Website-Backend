@@ -60,7 +60,7 @@ Resources:
        #             - ':tables/VisitorsTable'        
       Environment:
         Variables:
-          TABLE_NAME: !Ref VisitorsTable
+          TABLE_NAME: !Ref VisitorCounter
       Events:
         HttpGet:
             Type: Api
