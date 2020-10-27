@@ -39,11 +39,11 @@ Resources:
       MemorySize: 128
       Timeout: 3
       Policies:
-         #- DynamoDBReadPolicy: 
-            #TableName: !Ref VisitorCounter
-         #- DynamoDBWritePolicy:
-            #TableName: !Ref VisitorCounter
-        - AmazonDynamoDBFullAccess
+        - DynamoDBReadPolicy: 
+            TableName: !Ref VisitorCounter
+        - DynamoDBWritePolicy:
+            TableName: !Ref VisitorCounter
+        #- AmazonDynamoDBFullAccess
        # - Version: '2012-10-17'
        #   Statement:
        #     - Effect: Allow
