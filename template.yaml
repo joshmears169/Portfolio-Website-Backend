@@ -65,7 +65,7 @@ Resources:
         HttpGet:
             Type: Api
             Properties:
-              Path: '/VisitorCounter'
+              Path: /VisitorCounter
               Method: GET
               #RestApiId: !Ref ServerlessRestApi
 #LambdaLayers  
@@ -79,10 +79,10 @@ Resources:
       #  - python3.8
       #RetentionPolicy: Retain
 #DynamoDB Table
-  VisitorsTable:
+  VisitorCounter:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: VisitorCounter
+     # TableName: VisitorCounter
       KeySchema:
         - AttributeName: website
           KeyType: HASH
