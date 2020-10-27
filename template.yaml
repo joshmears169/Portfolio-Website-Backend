@@ -83,7 +83,7 @@ Resources:
   VisitorCounter:
     Type: AWS::DynamoDB::Table
     Properties:
-      #TableName: VisitorCounter
+      TableName: VisitorCounter
       KeySchema:
         - AttributeName: website
           KeyType: HASH
