@@ -102,6 +102,6 @@ Outputs:
   PortfolioBackendFunctionIamRole:
     Description: Implicit IAM Role created for Portfolio Backend function
     Value: !GetAtt PortfolioBackendFunctionRole.Arn
-  VisitorsTable:
-    Description: DynamoDB table to record visitor count to my portfolio
-    Value: !GetAtt VisitorsTable.Arn
+  #VisitorsTable:
+   # Description: DynamoDB table to record visitor count to my portfolio
+    #Value: !GetAtt VisitorsTable.Arn
