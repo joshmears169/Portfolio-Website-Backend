@@ -39,11 +39,11 @@ Resources:
       MemorySize: 128
       Timeout: 3
       Policies:
-        - DynamoDBReadPolicy: 
-            TableName: !Ref VisitorCounter
-        - DynamoDBWritePolicy:
-            TableName: !Ref VisitorCounter
-        #- AmazonDynamoDBFullAccess
+        #- DynamoDBReadPolicy: 
+            #TableName: !GetAtt VisitorCounter
+        #- DynamoDBWritePolicy:
+            #TableName: !Getatt VisitorCounter
+        - AmazonDynamoDBFullAccess
        # - Version: '2012-10-17'
        #   Statement:
        #     - Effect: Allow
@@ -61,7 +61,7 @@ Resources:
        #             - ':tables/VisitorsTable'        
       Environment:
         Variables:
-          TABLE_NAME: !GetAtt VisitorCounter.Arn
+          TABLE_NAME: !Ref VisitorCounter
       Events:
         HttpGet:
           Type: Api
@@ -103,6 +103,6 @@ Outputs:
   PortfolioBackendFunctionIamRole:
     Description: Implicit IAM Role created for Portfolio Backend function
     Value: !GetAtt PortfolioBackendFunctionRole.Arn
-  VisitorCounter:
-    Description: DynamoDB table to record visitor count to my portfolio
-    Value: !GetAtt VisitorCounter.Arn
+  #VisitorCounter:
+   # Description: DynamoDB table to record visitor count to my portfolio
+    #Value: !GetAtt VisitorCounter.Arn
