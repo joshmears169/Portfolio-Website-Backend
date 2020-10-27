@@ -63,7 +63,7 @@ Resources:
         Variables:
           TABLE_NAME: !Ref VisitorCounter
       Events:
-        HttpGet:
+        VisitorCounter:
             Type: Api
             Properties:
               Path: /VisitorCounter
@@ -103,6 +103,6 @@ Outputs:
   PortfolioBackendFunctionIamRole:
     Description: Implicit IAM Role created for Portfolio Backend function
     Value: !GetAtt PortfolioBackendFunctionRole.Arn
-  #VisitorsTable:
-   # Description: DynamoDB table to record visitor count to my portfolio
-    #Value: !GetAtt VisitorsTable.Arn
+  VisitorCounter:
+    Description: DynamoDB table to record visitor count to my portfolio
+    Value: !GetAtt VisitorCounter.Arn
