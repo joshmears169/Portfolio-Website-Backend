@@ -39,10 +39,11 @@ Resources:
       MemorySize: 128
       Timeout: 3
       Policies:
-         - DynamoDBReadPolicy: 
-            TableName: !Ref VisitorCounter
-         - DynamoDBWritePolicy:
-            TableName: !Ref VisitorCounter
+         #- DynamoDBReadPolicy: 
+            #TableName: !Ref VisitorCounter
+         #- DynamoDBWritePolicy:
+            #TableName: !Ref VisitorCounter
+        - AmazonDynamoDBFullAccess
        # - Version: '2012-10-17'
        #   Statement:
        #     - Effect: Allow
@@ -62,7 +63,7 @@ Resources:
         Variables:
           TABLE_NAME: !Ref VisitorCounter
       Events:
-        VisitorCounter:
+        HttpGet:
           Type: Api
           Properties:
             Path: /VisitorCounter
@@ -82,7 +83,7 @@ Resources:
   VisitorCounter:
     Type: AWS::DynamoDB::Table
     Properties:
-     # TableName: VisitorCounter
+      TableName: VisitorCounter
       KeySchema:
         - AttributeName: website
           KeyType: HASH
